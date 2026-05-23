@@ -1,0 +1,54 @@
+using FishNet.Object;
+using UnityEngine;
+
+public class Projectile : NetworkBehaviour
+{
+    [SerializeField] private int _damage = 20;
+    [SerializeField] private float _lifetime = 5f;
+
+    private float _spawnTime;
+    private PlayerNetwork _launcher; 
+
+    public void SetLauncher(PlayerNetwork launcher)
+    {
+        _launcher = launcher;
+    }
+
+    public override void OnStartNetwork()
+    {
+        _spawnTime = Time.time;
+    }
+
+    private void Update()
+    {
+        if (!base.IsSpawned) return;
+        
+        float age = Time.time - _spawnTime;
+        if (age > _lifetime)
+        {
+            ServerManager.Despawn(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!base.IsServerInitialized) return;
+        
+        if (other.CompareTag("Wall") || other.CompareTag("Ground"))
+        {
+            ServerManager.Despawn(gameObject);
+            return;
+        }
+        
+        var target = other.GetComponentInParent<PlayerNetwork>();
+        
+        if (target == null || !target.IsAlive.Value) return;
+        
+        if (_launcher != null && _launcher == target)
+            return;
+
+        target.ServerTakeDamage(_damage);
+
+        ServerManager.Despawn(gameObject);
+    }
+}
