@@ -37,7 +37,7 @@ public class PlayerShooting : NetworkBehaviour
         bool isMatchInProgress = GameManager.Instance == null || GameManager.Instance.CurrentState.Value == GameManager.GameState.InProgress;
         if (!isMatchInProgress) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
             ShootServerRpc(_firePoint.position, _firePoint.forward);
     }
 

@@ -45,7 +45,7 @@ public class UIManager : MonoBehaviour
                 if (_waitingPanel != null) _waitingPanel.SetActive(true);
                 if (_waitingText != null)
                 {
-                    _waitingText.text = $"Ожидание игроков: {connectedPlayers} / 2";
+                    _waitingText.text = $"Ожидание игроков: {connectedPlayers}";
                 }
                 break;
             

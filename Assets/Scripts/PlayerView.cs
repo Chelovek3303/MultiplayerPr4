@@ -32,10 +32,10 @@ public class PlayerView : NetworkBehaviour
             _nicknameText.text = _playerNetwork.Nickname.Value;
     
         if (_hpText != null)
-            _hpText.text = $"HP: {_playerNetwork.HP.Value}";
+            _hpText.text = $"Heath: {_playerNetwork.HP.Value}";
     
         if (_ammoText != null && _playerShooting != null)
-            _ammoText.text = $"Ammo: {_playerShooting.CurrentAmmo.Value}/{_playerShooting._maxAmmo}";
+            _ammoText.text = $"{_playerShooting.CurrentAmmo.Value}/{_playerShooting._maxAmmo}";
     }
 
     private void Update()

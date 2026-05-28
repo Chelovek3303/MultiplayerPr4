@@ -106,7 +106,7 @@ public class RespawnTimerUI : MonoBehaviour
         while (timeLeft > 0f)
         {
             if (_timerText != null)
-                _timerText.text = $"Респавн: {timeLeft:F1} сек";
+                _timerText.text = $"Respawn: {timeLeft:F1}";
 
             timeLeft -= Time.deltaTime;
             yield return null;
